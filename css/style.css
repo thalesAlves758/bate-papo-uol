@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F3F3F3;
+}
+
+.bar {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    height: 80px;
+    padding: 22px;
+}
+
+.bar button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+}
+
+.bar button:hover {
+    cursor: pointer;
+}
+
+.top-bar {
+    left: 0;
+    top: 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.top-bar img {
+    width: 75px;
+    height: 53px;
+}
+
+.top-bar button ion-icon {
+    width: 45px;
+    height: 45px;
+}
+
+.bottom-bar {
+    left: 0;
+    bottom: 0;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-bar input {
+    width: 100%;
+    margin-right: 20px;
+    outline: none;
+    border: none;
+    background-color: inherit;
+    height: 30px;
+    font-size: 18px;
+    color: #000000;
+}
+
+.bottom-bar input::placeholder {
+    font-style: italic;
+    color: #000000;
+}
+
+.bottom-bar button ion-icon {
+    width: 26px;
+    height: 26px;
+}
+
+.messages-container {
+    margin-top: 114px;
+    margin-bottom: 90px;
+    width: 100%;
+}
+
+.message {
+    border-radius: 2px;
+    padding: 10px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 14px;
+}
+
+.message:not(:first-child) {
+    margin-top: 4px;
+}
+
+.message.normal-message {
+    background-color: #FFFFFF;
+}
+
+.message.status-message {
+    background-color: #DCDCDC;
+}
+
+.message.reserved-message {
+    background-color: #FFDEDE;
+}
+
+.message .hour {
+    color: #AAAAAA;
+}
+
+.message .username {
+    font-weight: bold;
+    margin: 6px;
+}
