@@ -5,6 +5,11 @@ body {
     background-color: #F3F3F3;
 }
 
+button:hover,
+.side-menu li:hover {
+    cursor: pointer;
+}
+
 .entry-container {
     position: fixed;
     left: 0;
@@ -73,10 +78,6 @@ body {
     background-color: inherit;
     border: none;
     outline: none;
-}
-
-.bar button:hover {
-    cursor: pointer;
 }
 
 .top-bar {

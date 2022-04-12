@@ -29,7 +29,7 @@
     <div class="bar top-bar">
         <img src="images/bate-papo-uol.jpg" alt="Bate-papo UOL">
 
-        <button>
+        <button onclick="showSideMenu()">
             <ion-icon name="people"></ion-icon>
         </button>
     </div>
@@ -64,28 +64,28 @@
     </div>
 
     <div class="side-menu-container hidden">
-        <div class="background"></div>
+        <div class="background" onclick="hideSideMenu()"></div>
 
         <div class="side-menu">
             <h2>
                 Escolha um contato para enviar mensagem:
             </h2>
             <ul class="participants">
-                <li class="selected">
+                <li onClick="selectItem(this)" class="selected">
                     <div class="left">
                         <ion-icon name="people"></ion-icon>
                         Todos
                     </div>
                     <ion-icon name="checkmark"></ion-icon>
                 </li>
-                <li>
+                <li onClick="selectItem(this)">
                     <div class="left">
                         <ion-icon name="person-circle"></ion-icon>
                         João
                     </div>
                     <ion-icon name="checkmark"></ion-icon>
                 </li>
-                <li>
+                <li onClick="selectItem(this)">
                     <div class="left">
                         <ion-icon name="person-circle"></ion-icon>
                         Maria
@@ -98,14 +98,14 @@
                 Escolha a visibilidade:
             </h2>
             <ul class="visibilities">
-                <li class="selected">
+                <li onClick="selectItem(this)" class="selected">
                     <div class="left">
                         <ion-icon name="lock-open"></ion-icon>
                         Público
                     </div>
                     <ion-icon name="checkmark"></ion-icon>
                 </li>
-                <li>
+                <li onClick="selectItem(this)">
                     <div class="left">
                         <ion-icon name="lock-closed"></ion-icon>
                         Reservadamente
