@@ -5,6 +5,58 @@ body {
     background-color: #F3F3F3;
 }
 
+.entry-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    padding: 0 58px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.entry-container img {
+    width: 130px;
+    height: 92px;
+    margin: 72px 0 94px 0;
+}
+
+.entry-container .entry-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.entry-container input {
+    width: 100%;
+    height: 54px;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    outline: none;
+    text-align: center;
+    background-color: #FFFFFF;
+    font-size: 18px;
+}
+
+.entry-container input::placeholder {
+    color: #AEAEAE;
+}
+
+.entry-container button {
+    margin: 16px auto;
+    background-color: #E7E7E7;
+    border: none;
+    width: 110px;
+    height: 46px;
+    color: #696969;
+    font-size: 18px;
+    border-radius: 9px;
+}
+
 .bar {
     position: fixed;
     width: 100%;
@@ -48,9 +100,13 @@ body {
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
 }
 
-.bottom-bar input {
+.bottom-bar > div {
     width: 100%;
     margin-right: 20px;
+}
+
+.bottom-bar input {
+    width: 100%;
     outline: none;
     border: none;
     background-color: inherit;
@@ -62,6 +118,11 @@ body {
 .bottom-bar input::placeholder {
     font-style: italic;
     color: #000000;
+}
+
+.bottom-bar .legend {
+    font-size: 14px;
+    font-weight: 300;
 }
 
 .bottom-bar button ion-icon {
@@ -174,6 +235,6 @@ body {
     display: inherit;
 }
 
-.side-menu-container.hidden {
+.hidden {
     display: none;
 }
