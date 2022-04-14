@@ -134,6 +134,9 @@ button:hover,
     margin-top: 114px;
     margin-bottom: 90px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .message {
@@ -144,6 +147,7 @@ button:hover,
     align-items: center;
     width: 100%;
     font-size: 14px;
+    word-break: break-all;
 }
 
 .message:not(:first-child) {
@@ -168,7 +172,6 @@ button:hover,
 
 .message .username {
     font-weight: bold;
-    margin: 6px;
 }
 
 .side-menu-container {
