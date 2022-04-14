@@ -1,5 +1,6 @@
 const THREE_SECONDS = 3 * 1000;
 const FIVE_SECONDS = 5 * 1000;
+const TEN_SECONDS = 10 * 1000;
 const BAD_REQUEST_STATUS = 400;
 const EVERYBODY_NAME = 'Todos';
 
@@ -89,14 +90,20 @@ const refreshMessagesPeriodically = () => {
     setInterval(getMessages, THREE_SECONDS);
 };
 
+const refreshParticipantsPeriodically = () => {
+    setInterval(getParticipants, TEN_SECONDS);
+};
+
+
 const login = () => {
     axios
         .post("https://mock-api.driven.com.br/api/v6/uol/participants", { name: username })
         .then(() => {
             keepLogged();
             getMessages();
-            getParticipants();
             refreshMessagesPeriodically();
+            getParticipants();
+            refreshParticipantsPeriodically();
         })
         .catch(error => {
             const { status } = error.response;
