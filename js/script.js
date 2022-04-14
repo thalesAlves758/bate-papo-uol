@@ -60,12 +60,17 @@ const renderMessagesError = () => {
     document.querySelector('.messages-container').innerHTML = '<p>Não foi possível recuperar as mensagens do servidor!</p>';
 };
 
+const addScrollToLastMessage = () => {
+    document.querySelector('.message:last-child').scrollIntoView();
+};
+
 const getMessages = () => {
     axios
         .get("https://mock-api.driven.com.br/api/v6/uol/messages")
         .then(response => {
             messages = response.data;
             renderMessages();
+            addScrollToLastMessage();
         })
         .catch(renderMessagesError);
 };
