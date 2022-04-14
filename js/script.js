@@ -91,14 +91,16 @@ const requestUsername = () => {
     login();
 };
 
+const logout = () => {
+    alert("Você foi deslogado. A página será reiniciada para que possa logar novamente.");
+    window.location.reload();
+};
+
 const keepLogged = () => {
     setInterval(() => {
         axios
             .post("https://mock-api.driven.com.br/api/v6/uol/status", { name: username })
-            .catch(() => {
-                alert("Você foi deslogado. A página será reiniciada para que possa logar novamente.");
-                window.location.reload();
-            });
+            .catch(logout);
     }, FIVE_SECONDS);
 };
 
@@ -118,6 +120,26 @@ const login = () => {
                 requestUsername();
             }
         });
+};
+
+const sendMessage = () => {
+    const inputMessageEl = document.querySelector('.bottom-bar input');
+    const messageText = inputMessageEl.value.trim();
+    inputMessageEl.value = '';
+    
+    if(messageText === '') {
+        return;
+    }
+    
+    axios
+        .post("https://mock-api.driven.com.br/api/v6/uol/messages", {
+            from: username,
+            to: "Todos",
+            text: messageText,
+            type: "message"
+        })
+        .then(getMessages)
+        .catch(logout);
 };
 
 requestUsername();
