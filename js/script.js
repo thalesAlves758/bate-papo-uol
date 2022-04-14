@@ -1,3 +1,5 @@
+const THREE_SECONDS = 3 * 1000;
+
 let messages = [];
 
 const showSideMenu = () => {
@@ -51,7 +53,11 @@ const renderMessages = () => {
         </div>`;
     });
 
-    document.querySelector('.messages-container').innerHTML = messageElements.length > 0 ? messageElements.join('') : 'Nenhuma mensagem!';
+    document.querySelector('.messages-container').innerHTML = messageElements.length > 0 ? messageElements.join('') : '<p>Nenhuma mensagem!</p>';
+};
+
+const renderMessagesError = () => {
+    document.querySelector('.messages-container').innerHTML = '<p>Não foi possível recuperar as mensagens do servidor!</p>';
 };
 
 const getMessages = () => {
@@ -60,7 +66,13 @@ const getMessages = () => {
         .then(response => {
             messages = response.data;
             renderMessages();
-        });
+        })
+        .catch(renderMessagesError);
+};
+
+const refreshMessagesPeriodically = () => {
+    setInterval(getMessages, THREE_SECONDS);
 };
 
 getMessages();
+refreshMessagesPeriodically();
