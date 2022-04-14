@@ -1,6 +1,8 @@
 const THREE_SECONDS = 3 * 1000;
+const BAD_REQUEST_STATUS = 400;
 
 let messages = [];
+let username;
 
 const showSideMenu = () => {
     document.querySelector('.side-menu-container').classList.remove('hidden');
@@ -79,5 +81,26 @@ const refreshMessagesPeriodically = () => {
     setInterval(getMessages, THREE_SECONDS);
 };
 
-getMessages();
-refreshMessagesPeriodically();
+const login = () => {
+    axios
+        .post("https://mock-api.driven.com.br/api/v6/uol/participants", { name: username })
+        .then(() => {
+            getMessages();
+            refreshMessagesPeriodically();
+        })
+        .catch(error => {
+            const { status } = error.response;
+
+            if(status === BAD_REQUEST_STATUS) {
+                alert('Este nome já está em uso. Por favor, tente outro!');
+                requestUsername();
+            }
+        });
+};
+
+const requestUsername = () => {
+    username = prompt('Qual é o seu lindo nome?');
+    login();
+};
+
+requestUsername();
