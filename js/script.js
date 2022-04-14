@@ -1,4 +1,5 @@
 const THREE_SECONDS = 3 * 1000;
+const FIVE_SECONDS = 5 * 1000;
 const BAD_REQUEST_STATUS = 400;
 
 let messages = [];
@@ -81,10 +82,27 @@ const refreshMessagesPeriodically = () => {
     setInterval(getMessages, THREE_SECONDS);
 };
 
+const requestUsername = () => {
+    username = prompt('Qual é o seu lindo nome?');
+    login();
+};
+
+const keepLogged = () => {
+    setInterval(() => {
+        axios
+            .post("https://mock-api.driven.com.br/api/v6/uol/status", { name: username })
+            .catch(() => {
+                alert("Você foi deslogado. A página será reiniciada para que possa logar novamente.");
+                window.location.reload();
+            });
+    }, FIVE_SECONDS);
+};
+
 const login = () => {
     axios
         .post("https://mock-api.driven.com.br/api/v6/uol/participants", { name: username })
         .then(() => {
+            keepLogged();
             getMessages();
             refreshMessagesPeriodically();
         })
@@ -96,11 +114,6 @@ const login = () => {
                 requestUsername();
             }
         });
-};
-
-const requestUsername = () => {
-    username = prompt('Qual é o seu lindo nome?');
-    login();
 };
 
 requestUsername();
