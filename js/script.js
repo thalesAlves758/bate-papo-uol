@@ -67,11 +67,15 @@ const addScrollToLastMessage = () => {
     document.querySelector('.message:last-child').scrollIntoView();
 };
 
+const filterMessages = messages => {
+    return messages.filter(message => message.type !== 'private_message' || message.to === username);
+};
+
 const getMessages = () => {
     axios
         .get("https://mock-api.driven.com.br/api/v6/uol/messages")
         .then(response => {
-            messages = response.data;
+            messages = filterMessages(response.data);
             renderMessages();
             addScrollToLastMessage();
         })
