@@ -219,6 +219,14 @@ button:hover,
     align-items: center;
 }
 
+.side-menu .participants {
+    overflow-y: scroll;
+}
+
+.side-menu .visibilities {
+    margin-bottom: 20px;
+}
+
 .side-menu ul .left {
     display: flex;
     align-items: center;

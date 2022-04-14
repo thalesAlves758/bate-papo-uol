@@ -1,9 +1,12 @@
 const THREE_SECONDS = 3 * 1000;
 const FIVE_SECONDS = 5 * 1000;
 const BAD_REQUEST_STATUS = 400;
+const EVERYBODY_NAME = 'Todos';
 
 let messages = [];
+let participants = [];
 let username;
+let currentParticipantSelected = EVERYBODY_NAME;
 
 const showSideMenu = () => {
     document.querySelector('.side-menu-container').classList.remove('hidden');
@@ -37,11 +40,11 @@ const getMessageTypeClass = messageType => {
 };
 
 const getReservedString = message => {
-    return `${message.type === 'private_message' ? 'reservadamente ' : ''}`;
+    return message.type === 'private_message' ? 'reservadamente ' : '';
 };
 
 const getReceiverMessage = message => {
-    return `${message.type !== 'status' ? `${getReservedString(message)}para <span class="username">${message.to}</span>:` : ''}`;
+    return message.type !== 'status' ? `${getReservedString(message)}para <span class="username">${message.to}</span>:` : '';
 };
 
 const renderMessages = () => {
@@ -86,6 +89,25 @@ const refreshMessagesPeriodically = () => {
     setInterval(getMessages, THREE_SECONDS);
 };
 
+const login = () => {
+    axios
+        .post("https://mock-api.driven.com.br/api/v6/uol/participants", { name: username })
+        .then(() => {
+            keepLogged();
+            getMessages();
+            getParticipants();
+            refreshMessagesPeriodically();
+        })
+        .catch(error => {
+            const { status } = error.response;
+
+            if(status === BAD_REQUEST_STATUS) {
+                alert('Este nome já está em uso. Por favor, tente outro!');
+                requestUsername();
+            }
+        });
+};
+
 const requestUsername = () => {
     username = prompt('Qual é o seu lindo nome?');
     login();
@@ -104,24 +126,6 @@ const keepLogged = () => {
     }, FIVE_SECONDS);
 };
 
-const login = () => {
-    axios
-        .post("https://mock-api.driven.com.br/api/v6/uol/participants", { name: username })
-        .then(() => {
-            keepLogged();
-            getMessages();
-            refreshMessagesPeriodically();
-        })
-        .catch(error => {
-            const { status } = error.response;
-
-            if(status === BAD_REQUEST_STATUS) {
-                alert('Este nome já está em uso. Por favor, tente outro!');
-                requestUsername();
-            }
-        });
-};
-
 const sendMessage = () => {
     const inputMessageEl = document.querySelector('.bottom-bar input');
     const messageText = inputMessageEl.value.trim();
@@ -134,12 +138,52 @@ const sendMessage = () => {
     axios
         .post("https://mock-api.driven.com.br/api/v6/uol/messages", {
             from: username,
-            to: "Todos",
+            to: EVERYBODY_NAME,
             text: messageText,
             type: "message"
         })
         .then(getMessages)
         .catch(logout);
+};
+
+const insertEverybodyToParticipants = () => {
+    const everybody = { name: EVERYBODY_NAME };
+    participants.unshift(everybody);
+};
+
+const filterParticipants = participants => {
+    return participants.filter(participant => participant.name !== username);
+};
+
+const renderParticipants = () => {
+    insertEverybodyToParticipants();
+
+    const participantsElements = participants.map(participant => {
+        return `<li onClick="selectItem(this)" ${participant.name === currentParticipantSelected ? 'class="selected"' : ''}>
+            <div class="left">
+                <ion-icon name="${participant.name === EVERYBODY_NAME ? 'people' : 'person-circle'}"></ion-icon>
+                ${participant.name}
+            </div>
+            <ion-icon name="checkmark"></ion-icon>
+        </li>`;
+    });
+
+    document.querySelector('.participants').innerHTML = participantsElements.join('');
+};
+
+const renderParticipantsError = () => {
+    renderParticipants();
+    document.querySelector('.participants').innerHTML += '<p>Não foi possível recuperar os participantes.</p>';
+}
+
+const getParticipants = () => {
+    axios
+        .get("https://mock-api.driven.com.br/api/v6/uol/participants")
+        .then(response => {
+            participants = filterParticipants(response.data);
+            renderParticipants();
+        })
+        .catch(renderParticipantsError);
 };
 
 requestUsername();
