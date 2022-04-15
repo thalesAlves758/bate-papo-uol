@@ -38,8 +38,9 @@
 
     <div class="bar bottom-bar">
         <div>
-            <input type="text" placeholder="Escreva aqui...">
+            <input type="text" placeholder="Escreva aqui..." onKeyup="updateMessageText(this)">
             <!-- <div class="legend">Enviando para Maria (reservadamente)</div> -->
+            <div class="legend"></div>
         </div>
         
         <button onClick="sendMessage()">
@@ -60,14 +61,14 @@
                 Escolha a visibilidade:
             </h2>
             <ul class="visibilities">
-                <li onClick="selectItem(this)" class="selected">
+                <li onClick="selectItem(this)" class="selected" data-visibility="message">
                     <div class="left">
                         <ion-icon name="lock-open"></ion-icon>
                         Público
                     </div>
                     <ion-icon name="checkmark"></ion-icon>
                 </li>
-                <li onClick="selectItem(this)">
+                <li onClick="selectItem(this)" data-visibility="private_message">
                     <div class="left">
                         <ion-icon name="lock-closed"></ion-icon>
                         Reservadamente

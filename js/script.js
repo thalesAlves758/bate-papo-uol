@@ -3,11 +3,20 @@ const FIVE_SECONDS = 5 * 1000;
 const TEN_SECONDS = 10 * 1000;
 const BAD_REQUEST_STATUS = 400;
 const EVERYBODY_NAME = 'Todos';
+const NORMAL_MESSAGE_NAME = 'message';
+const STATUS_MESSAGE_NAME = 'status';
+const RESERVED_MESSAGE_NAME = 'private_message';
 
 let messages = [];
 let participants = [];
 let username;
 let currentParticipantSelected = EVERYBODY_NAME;
+let userMessage = {
+    from: '',
+    to: EVERYBODY_NAME,
+    text: '',
+    type: NORMAL_MESSAGE_NAME,
+};
 
 const showSideMenu = () => {
     document.querySelector('.side-menu-container').classList.remove('hidden');
@@ -17,6 +26,15 @@ const hideSideMenu = () => {
     document.querySelector('.side-menu-container').classList.add('hidden');
 };
 
+const getLegendText = () => {
+    if(userMessage.to !== 'Todos') {
+        return `Enviando para ${userMessage.to} ${userMessage.type === RESERVED_MESSAGE_NAME ? '(reservadamente)' : ''}`;
+    }
+    return '';
+};
+
+const updateInputLegendElement = () => document.querySelector('.bottom-bar .legend').innerHTML = getLegendText();
+
 const selectItem = itemEl => {
     if(itemEl.classList.contains('selected')) return;
 
@@ -25,6 +43,10 @@ const selectItem = itemEl => {
 
     if(selectedItemEl) selectedItemEl.classList.remove('selected');
     itemEl.classList.add('selected');
+
+    updateMessageReceiver();
+    updateMessageType();
+    updateInputLegendElement();
 };
 
 const getMessageTypeClass = messageType => {
@@ -71,8 +93,12 @@ const addScrollToLastMessage = () => {
     document.querySelector('.message:last-child').scrollIntoView();
 };
 
+const canShowMessage = message => {
+    return message.from === username || message.to === username || message.type !== 'private_message';
+};
+
 const filterMessages = messages => {
-    return messages.filter(message => message.type !== 'private_message' || message.to === username);
+    return messages.filter(canShowMessage);
 };
 
 const getMessages = () => {
@@ -94,11 +120,11 @@ const refreshParticipantsPeriodically = () => {
     setInterval(getParticipants, TEN_SECONDS);
 };
 
-
 const login = () => {
     axios
         .post("https://mock-api.driven.com.br/api/v6/uol/participants", { name: username })
         .then(() => {
+            updateMessageSender();
             keepLogged();
             getMessages();
             refreshMessagesPeriodically();
@@ -106,13 +132,29 @@ const login = () => {
             refreshParticipantsPeriodically();
         })
         .catch(error => {
-            const { status } = error.response;
-
-            if(status === BAD_REQUEST_STATUS) {
+            if(error.response.status === BAD_REQUEST_STATUS) {
                 alert('Este nome já está em uso. Por favor, tente outro!');
                 requestUsername();
             }
         });
+};
+
+const updateMessageText = inputEl => {
+    userMessage.text = inputEl.value;
+};
+
+const updateMessageReceiver = () => {
+    const participantName = document.querySelector('.participants .selected').dataset.participant;
+    userMessage.to = participantName;
+    currentParticipantSelected = participantName;
+};
+
+const updateMessageSender = () => {
+    userMessage.from = username;
+};
+
+const updateMessageType = () => {
+    userMessage.type = document.querySelector('.visibilities .selected').dataset.visibility;
 };
 
 const requestUsername = () => {
@@ -134,28 +176,18 @@ const keepLogged = () => {
 };
 
 const sendMessage = () => {
-    const inputMessageEl = document.querySelector('.bottom-bar input');
-    const messageText = inputMessageEl.value.trim();
-    inputMessageEl.value = '';
+    document.querySelector('.bottom-bar input').value = '';
     
-    if(messageText === '') {
+    userMessage.text = userMessage.text.trim();
+    
+    if(userMessage.text === '') {
         return;
     }
-    
+
     axios
-        .post("https://mock-api.driven.com.br/api/v6/uol/messages", {
-            from: username,
-            to: EVERYBODY_NAME,
-            text: messageText,
-            type: "message"
-        })
+        .post("https://mock-api.driven.com.br/api/v6/uol/messages", userMessage)
         .then(getMessages)
         .catch(logout);
-};
-
-const insertEverybodyToParticipants = () => {
-    const everybody = { name: EVERYBODY_NAME };
-    participants.unshift(everybody);
 };
 
 const filterParticipants = participants => {
@@ -163,13 +195,13 @@ const filterParticipants = participants => {
 };
 
 const renderParticipants = () => {
-    insertEverybodyToParticipants();
+    participants.unshift({ name: EVERYBODY_NAME });
 
     const participantsElements = participants.map(participant => {
-        return `<li onClick="selectItem(this)" ${participant.name === currentParticipantSelected ? 'class="selected"' : ''}>
+        return `<li onClick="selectItem(this)" data-participant="${participant.name}" ${participant.name === currentParticipantSelected ? 'class="selected"' : ''}>
             <div class="left">
                 <ion-icon name="${participant.name === EVERYBODY_NAME ? 'people' : 'person-circle'}"></ion-icon>
-                ${participant.name}
+                <span class="participantName">${participant.name}</span>
             </div>
             <ion-icon name="checkmark"></ion-icon>
         </li>`;
@@ -189,6 +221,8 @@ const getParticipants = () => {
         .then(response => {
             participants = filterParticipants(response.data);
             renderParticipants();
+            updateMessageReceiver();
+            updateMessageType();
         })
         .catch(renderParticipantsError);
 };
