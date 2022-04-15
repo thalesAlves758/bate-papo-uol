@@ -120,10 +120,31 @@ const refreshParticipantsPeriodically = () => {
     setInterval(getParticipants, TEN_SECONDS);
 };
 
+const unableLoginButton = () => document.querySelector('.entry-form button').disabled = true;
+
+const ableLoginButton = () => document.querySelector('.entry-form button').disabled = false;
+
+const renderNameErrorMessage = () => {
+    document.querySelector('.entry-form .incorrect-message').innerHTML = "Este nome já está em uso. Por favor, tente outro!";
+    document.querySelector('.entry-form .input').classList.add('invalid');
+};
+
+const removeNameErrorMessage = () => {
+    document.querySelector('.entry-form .incorrect-message').innerHTML = "";
+    document.querySelector('.entry-form .input').classList.remove('invalid');
+};
+
+const hideLoginForm = () => {
+    document.querySelector('.entry-container').classList.add('hidden');
+};
+
 const login = () => {
+    unableLoginButton();
+
     axios
         .post("https://mock-api.driven.com.br/api/v6/uol/participants", { name: username })
         .then(() => {
+            hideLoginForm();
             updateMessageSender();
             keepLogged();
             getMessages();
@@ -133,8 +154,7 @@ const login = () => {
         })
         .catch(error => {
             if(error.response.status === BAD_REQUEST_STATUS) {
-                alert('Este nome já está em uso. Por favor, tente outro!');
-                requestUsername();
+                renderNameErrorMessage();
             }
         });
 };
@@ -227,4 +247,13 @@ const getParticipants = () => {
         .catch(renderParticipantsError);
 };
 
-requestUsername();
+const checkName = inputElement => {
+    removeNameErrorMessage();
+    username = inputElement.value.trim();
+
+    if(username !== '') {
+        ableLoginButton();
+        return;
+    }
+    unableLoginButton();
+}

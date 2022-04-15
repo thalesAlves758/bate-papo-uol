@@ -30,7 +30,7 @@ button:hover,
     margin: 72px 0 94px 0;
 }
 
-.entry-container .entry-form {
+.entry-container .container {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -47,6 +47,10 @@ button:hover,
     font-size: 18px;
 }
 
+.invalid input {
+    border: 2px solid #E20404;
+}
+
 .entry-container input::placeholder {
     color: #AEAEAE;
 }
@@ -60,6 +64,16 @@ button:hover,
     color: #696969;
     font-size: 18px;
     border-radius: 9px;
+}
+
+.entry-container button:disabled {
+    color: #B8BBC0;
+}
+
+.input .incorrect-message {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #E20404;
 }
 
 .bar {

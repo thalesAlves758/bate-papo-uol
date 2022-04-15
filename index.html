@@ -14,16 +14,24 @@
 </head>
 <body>
 
-    <div class="entry-container hidden">
+    <div class="entry-container">
         <img src="images/bate-papo-uol.jpg" alt="Bate-papo UOL">
 
-        <div class="entry-form">
-            <input type="text" placeholder="Digite seu nome">
+        <div class="container entry-form hidden">
+            <div class="input">
+                <input type="text" onKeyup="checkName(this)" placeholder="Digite seu nome">
+                <div class="incorrect-message"></div>
+            </div>
 
-            <button>
+            <button disabled onClick="login()">
                 Entrar
             </button>
         </div>
+
+        <!-- <div class="container loading-container">
+            <img src="images/loading.gif" alt="Loading">
+            <div class="loading-message">Entrando...</div>
+        </div> -->
     </div>
     
     <div class="bar top-bar">
@@ -39,7 +47,6 @@
     <div class="bar bottom-bar">
         <div>
             <input type="text" placeholder="Escreva aqui..." onKeyup="updateMessageText(this)">
-            <!-- <div class="legend">Enviando para Maria (reservadamente)</div> -->
             <div class="legend"></div>
         </div>
         
