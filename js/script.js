@@ -6,16 +6,48 @@ const EVERYBODY_NAME = 'Todos';
 const NORMAL_MESSAGE_NAME = 'message';
 const STATUS_MESSAGE_NAME = 'status';
 const RESERVED_MESSAGE_NAME = 'private_message';
+const ENTER_KEY = 'Enter';
 
 let messages = [];
 let participants = [];
 let username;
 let currentParticipantSelected = EVERYBODY_NAME;
-let userMessage = {
+const userMessage = {
     from: '',
     to: EVERYBODY_NAME,
     text: '',
     type: NORMAL_MESSAGE_NAME,
+};
+
+const addKeyupEvents = () => {
+    document.querySelector('.bottom-bar input').addEventListener('keyup', event => {
+        event.preventDefault();
+    
+        if(event.key === ENTER_KEY) {
+            document.querySelector('.bottom-bar button').click();
+            return;
+        }
+    
+        userMessage.text = event.target.value;
+    });
+
+    document.querySelector('.entry-form input').addEventListener('keyup', event => {
+        event.preventDefault();
+
+        if(event.key === ENTER_KEY) {
+            document.querySelector('.entry-form button').click();
+            return;
+        }
+
+        removeNameErrorMessage();
+        username = event.target.value.trim();
+
+        if(username !== '') {
+            ableLoginButton();
+            return;
+        }
+        disableLoginButton();
+    });
 };
 
 const showSideMenu = () => {
@@ -171,10 +203,6 @@ const login = () => {
         });
 };
 
-const updateMessageText = inputEl => {
-    userMessage.text = inputEl.value;
-};
-
 const updateMessageReceiver = () => {
     const participantName = document.querySelector('.participants .selected').dataset.participant;
     userMessage.to = participantName;
@@ -208,8 +236,6 @@ const keepLogged = () => {
 };
 
 const sendMessage = () => {
-    document.querySelector('.bottom-bar input').value = '';
-    
     userMessage.text = userMessage.text.trim();
     
     if(userMessage.text === '') {
@@ -218,7 +244,11 @@ const sendMessage = () => {
 
     axios
         .post("https://mock-api.driven.com.br/api/v6/uol/messages", userMessage)
-        .then(getMessages)
+        .then(() => {
+            getMessages();
+            document.querySelector('.bottom-bar input').value = '';
+            userMessage.text = '';
+        })
         .catch(logout);
 };
 
@@ -259,13 +289,4 @@ const getParticipants = () => {
         .catch(renderParticipantsError);
 };
 
-const checkName = inputElement => {
-    removeNameErrorMessage();
-    username = inputElement.value.trim();
-
-    if(username !== '') {
-        ableLoginButton();
-        return;
-    }
-    disableLoginButton();
-}
+window.onload = addKeyupEvents;
