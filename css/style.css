@@ -1,282 +1,282 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #F3F3F3;
+  font-family: 'Roboto', sans-serif;
+  background-color: #F3F3F3;
 }
 
 button:hover,
 .side-menu li:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .entry-container {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    padding: 0 58px;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  padding: 0 58px;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.entry-container > img {
-    width: 130px;
-    height: 92px;
-    margin: 72px 0 94px 0;
+.entry-container>img {
+  width: 130px;
+  height: 92px;
+  margin: 72px 0 94px 0;
 }
 
 .entry-container .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .entry-container .container.hidden {
-    display: none;
+  display: none;
 }
 
 .entry-container input {
-    width: 100%;
-    height: 54px;
-    border: 1px solid #D7D7D7;
-    border-radius: 4px;
-    outline: none;
-    text-align: center;
-    background-color: #FFFFFF;
-    font-size: 18px;
+  width: 100%;
+  height: 54px;
+  border: 1px solid #D7D7D7;
+  border-radius: 4px;
+  outline: none;
+  text-align: center;
+  background-color: #FFFFFF;
+  font-size: 18px;
 }
 
 .invalid input {
-    border: 2px solid #E20404;
+  border: 2px solid #E20404;
 }
 
 .entry-container input::placeholder {
-    color: #AEAEAE;
+  color: #AEAEAE;
 }
 
 .entry-container button {
-    margin: 16px auto;
-    background-color: #E7E7E7;
-    border: none;
-    width: 110px;
-    height: 46px;
-    color: #696969;
-    font-size: 18px;
-    border-radius: 9px;
+  margin: 16px auto;
+  background-color: #E7E7E7;
+  border: none;
+  width: 110px;
+  height: 46px;
+  color: #696969;
+  font-size: 18px;
+  border-radius: 9px;
 }
 
 .entry-container button:disabled {
-    color: #B8BBC0;
+  color: #B8BBC0;
 }
 
 .input .incorrect-message {
-    margin-top: 4px;
-    font-size: 12px;
-    color: #E20404;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #E20404;
 }
 
 .entry-container .loading-container img {
-    width: 120px;
-    height: 120px;
+  width: 120px;
+  height: 120px;
 }
 
 .entry-container .loading-container h2 {
-    margin: 10px 0;
-    font-weight: 400;
-    font-size: 20px;
+  margin: 10px 0;
+  font-weight: 400;
+  font-size: 20px;
 }
 
 .bar {
-    position: fixed;
-    width: 100%;
-    z-index: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #FFFFFF;
-    height: 80px;
-    padding: 22px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFFFFF;
+  height: 80px;
+  padding: 22px;
 }
 
 .bar button {
-    background-color: inherit;
-    border: none;
-    outline: none;
+  background-color: inherit;
+  border: none;
+  outline: none;
 }
 
 .top-bar {
-    left: 0;
-    top: 0;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+  left: 0;
+  top: 0;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .top-bar img {
-    width: 75px;
-    height: 53px;
+  width: 75px;
+  height: 53px;
 }
 
 .top-bar button ion-icon {
-    font-size: 45px;
+  font-size: 45px;
 }
 
 .bottom-bar {
-    left: 0;
-    bottom: 0;
-    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+  left: 0;
+  bottom: 0;
+  box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
 }
 
-.bottom-bar > div {
-    width: 100%;
-    margin-right: 20px;
+.bottom-bar>div {
+  width: 100%;
+  margin-right: 20px;
 }
 
 .bottom-bar input {
-    width: 100%;
-    outline: none;
-    border: none;
-    background-color: inherit;
-    height: 30px;
-    font-size: 18px;
-    color: #000000;
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: inherit;
+  height: 30px;
+  font-size: 18px;
+  color: #000000;
 }
 
 .bottom-bar input::placeholder {
-    font-style: italic;
-    color: #000000;
+  font-style: italic;
+  color: #000000;
 }
 
 .bottom-bar .legend {
-    font-size: 14px;
-    font-weight: 300;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 .bottom-bar button ion-icon {
-    font-size: 26px;
+  font-size: 26px;
 }
 
 .messages-container {
-    margin-top: 114px;
-    margin-bottom: 90px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin-top: 114px;
+  margin-bottom: 90px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .message {
-    border-radius: 2px;
-    padding: 10px;
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    font-size: 14px;
-    word-break: break-all;
+  border-radius: 2px;
+  padding: 10px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 14px;
+  word-break: break-all;
 }
 
 .message:not(:first-child) {
-    margin-top: 4px;
+  margin-top: 4px;
 }
 
 .message.normal-message {
-    background-color: #FFFFFF;
+  background-color: #FFFFFF;
 }
 
 .message.status-message {
-    background-color: #DCDCDC;
+  background-color: #DCDCDC;
 }
 
 .message.reserved-message {
-    background-color: #FFDEDE;
+  background-color: #FFDEDE;
 }
 
 .message .hour {
-    color: #AAAAAA;
+  color: #AAAAAA;
 }
 
 .message .username {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .side-menu-container {
-    display: flex;
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
 }
 
 .side-menu-container .background {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .side-menu-container .side-menu {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 260px;
-    height: 100%;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    font-size: 16px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 100%;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
 }
 
 .side-menu-container .side-menu h2 {
-    font-weight: bold;
-    text-align: center;
-    padding: 26px 42px;
+  font-weight: bold;
+  text-align: center;
+  padding: 26px 42px;
 }
 
 .side-menu-container .side-menu ul {
-    padding: 0 18px;
+  padding: 0 18px;
 }
 
 .side-menu-container .side-menu ul li {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .side-menu .participants {
-    overflow-y: scroll;
+  overflow-y: scroll;
 }
 
 .side-menu .visibilities {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .side-menu ul .left {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .side-menu ul .left ion-icon {
-    margin-right: 8px;
-    font-size: 25px;
+  margin-right: 8px;
+  font-size: 25px;
 }
 
 .side-menu ul ion-icon[name='checkmark'] {
-    display: none;
-    font-size: 16px;
-    color: #28BB25;
+  display: none;
+  font-size: 16px;
+  color: #28BB25;
 }
 
 .side-menu ul li.selected ion-icon[name='checkmark'] {
-    display: inherit;
+  display: inherit;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }

@@ -1,98 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Bate-papo UOL</title>
-    
-    <link rel="shortcut icon" href="images/uol-icon.png">
+  <title>Bate-papo UOL</title>
 
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="images/uol-icon.png">
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-    <div class="entry-container">
-        <img src="images/bate-papo-uol.jpg" alt="Bate-papo UOL">
+  <div class="entry-container">
+    <img src="images/bate-papo-uol.jpg" alt="Bate-papo UOL">
 
-        <div class="container entry-form">
-            <div class="input">
-                <input type="text" placeholder="Digite seu nome">
-                <div class="incorrect-message"></div>
-            </div>
+    <div class="container entry-form">
+      <div class="input">
+        <input type="text" placeholder="Digite seu nome">
+        <div class="incorrect-message"></div>
+      </div>
 
-            <button disabled onClick="login()">
-                Entrar
-            </button>
-        </div>
-
-        <div class="container loading-container hidden">
-            <img src="images/loading.gif" alt="Loading">
-            <h2>Entrando...</h2>
-        </div>
-    </div>
-    
-    <div class="bar top-bar">
-        <img src="images/bate-papo-uol.jpg" alt="Bate-papo UOL">
-
-        <button onclick="showSideMenu()">
-            <ion-icon name="people"></ion-icon>
-        </button>
+      <button disabled onClick="login()">
+        Entrar
+      </button>
     </div>
 
-    <div class="messages-container">
-        <p>Carregando as mensagens...</p>
+    <div class="container loading-container hidden">
+      <img src="images/loading.gif" alt="Loading">
+      <h2>Entrando...</h2>
+    </div>
+  </div>
+
+  <div class="bar top-bar">
+    <img src="images/bate-papo-uol.jpg" alt="Bate-papo UOL">
+
+    <button onclick="showSideMenu()">
+      <ion-icon name="people"></ion-icon>
+    </button>
+  </div>
+
+  <div class="messages-container">
+    <p>Carregando as mensagens...</p>
+  </div>
+
+  <div class="bar bottom-bar">
+    <div>
+      <input type="text" placeholder="Escreva aqui...">
+      <div class="legend"></div>
     </div>
 
-    <div class="bar bottom-bar">
-        <div>
-            <input type="text" placeholder="Escreva aqui...">
-            <div class="legend"></div>
-        </div>
-        
-        <button onClick="sendMessage()">
-            <ion-icon name="paper-plane-outline"></ion-icon>
-        </button>
+    <button onClick="sendMessage()">
+      <ion-icon name="paper-plane-outline"></ion-icon>
+    </button>
+  </div>
+
+  <div class="side-menu-container hidden">
+    <div class="background" onclick="hideSideMenu()"></div>
+
+    <div class="side-menu">
+      <h2>
+        Escolha um contato para enviar mensagem:
+      </h2>
+      <ul class="participants"></ul>
+
+      <h2>
+        Escolha a visibilidade:
+      </h2>
+      <ul class="visibilities">
+        <li onClick="selectItem(this)" class="selected" data-visibility="message">
+          <div class="left">
+            <ion-icon name="lock-open"></ion-icon>
+            Público
+          </div>
+          <ion-icon name="checkmark"></ion-icon>
+        </li>
+        <li onClick="selectItem(this)" data-visibility="private_message">
+          <div class="left">
+            <ion-icon name="lock-closed"></ion-icon>
+            Reservadamente
+          </div>
+          <ion-icon name="checkmark"></ion-icon>
+        </li>
+      </ul>
     </div>
+  </div>
 
-    <div class="side-menu-container hidden">
-        <div class="background" onclick="hideSideMenu()"></div>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-        <div class="side-menu">
-            <h2>
-                Escolha um contato para enviar mensagem:
-            </h2>
-            <ul class="participants"></ul>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-            <h2>
-                Escolha a visibilidade:
-            </h2>
-            <ul class="visibilities">
-                <li onClick="selectItem(this)" class="selected" data-visibility="message">
-                    <div class="left">
-                        <ion-icon name="lock-open"></ion-icon>
-                        Público
-                    </div>
-                    <ion-icon name="checkmark"></ion-icon>
-                </li>
-                <li onClick="selectItem(this)" data-visibility="private_message">
-                    <div class="left">
-                        <ion-icon name="lock-closed"></ion-icon>
-                        Reservadamente
-                    </div>
-                    <ion-icon name="checkmark"></ion-icon>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <script src="js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
+
 </html>
