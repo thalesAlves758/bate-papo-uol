@@ -120,7 +120,7 @@ const refreshParticipantsPeriodically = () => {
     setInterval(getParticipants, TEN_SECONDS);
 };
 
-const unableLoginButton = () => document.querySelector('.entry-form button').disabled = true;
+const disableLoginButton = () => document.querySelector('.entry-form button').disabled = true;
 
 const ableLoginButton = () => document.querySelector('.entry-form button').disabled = false;
 
@@ -138,8 +138,19 @@ const hideLoginForm = () => {
     document.querySelector('.entry-container').classList.add('hidden');
 };
 
+const showLoadingGif = () => {
+    document.querySelector('.loading-container').classList.remove('hidden');
+    document.querySelector('.entry-form').classList.add('hidden');
+};
+
+const hideLoadingGif = () => {
+    document.querySelector('.loading-container').classList.add('hidden');
+    document.querySelector('.entry-form').classList.remove('hidden');
+};
+
 const login = () => {
-    unableLoginButton();
+    disableLoginButton();
+    showLoadingGif();
 
     axios
         .post("https://mock-api.driven.com.br/api/v6/uol/participants", { name: username })
@@ -155,6 +166,7 @@ const login = () => {
         .catch(error => {
             if(error.response.status === BAD_REQUEST_STATUS) {
                 renderNameErrorMessage();
+                hideLoadingGif();
             }
         });
 };
@@ -255,5 +267,5 @@ const checkName = inputElement => {
         ableLoginButton();
         return;
     }
-    unableLoginButton();
+    disableLoginButton();
 }

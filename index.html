@@ -17,7 +17,7 @@
     <div class="entry-container">
         <img src="images/bate-papo-uol.jpg" alt="Bate-papo UOL">
 
-        <div class="container entry-form hidden">
+        <div class="container entry-form">
             <div class="input">
                 <input type="text" onKeyup="checkName(this)" placeholder="Digite seu nome">
                 <div class="incorrect-message"></div>
@@ -28,10 +28,10 @@
             </button>
         </div>
 
-        <!-- <div class="container loading-container">
+        <div class="container loading-container hidden">
             <img src="images/loading.gif" alt="Loading">
-            <div class="loading-message">Entrando...</div>
-        </div> -->
+            <h2>Entrando...</h2>
+        </div>
     </div>
     
     <div class="bar top-bar">
@@ -42,7 +42,9 @@
         </button>
     </div>
 
-    <div class="messages-container"></div>
+    <div class="messages-container">
+        <p>Carregando as mensagens...</p>
+    </div>
 
     <div class="bar bottom-bar">
         <div>
