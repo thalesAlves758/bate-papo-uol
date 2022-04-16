@@ -50,13 +50,9 @@ const addKeyupEvents = () => {
     });
 };
 
-const showSideMenu = () => {
-    document.querySelector('.side-menu-container').classList.remove('hidden');
-};
+const showSideMenu = () => document.querySelector('.side-menu-container').classList.remove('hidden');
 
-const hideSideMenu = () => {
-    document.querySelector('.side-menu-container').classList.add('hidden');
-};
+const hideSideMenu = () => document.querySelector('.side-menu-container').classList.add('hidden');
 
 const getLegendText = () => {
     if(userMessage.to !== 'Todos') {
@@ -83,24 +79,20 @@ const selectItem = itemEl => {
 
 const getMessageTypeClass = messageType => {
     switch(messageType) {
-        case 'status':
-            return 'status';
-
-        case 'message':
+        case NORMAL_MESSAGE_NAME:
             return 'normal';
 
-        case 'private_message':
+        case RESERVED_MESSAGE_NAME:
             return 'reserved';
+
+        default:
+            return messageType;
     }
 };
 
-const getReservedString = message => {
-    return message.type === 'private_message' ? 'reservadamente ' : '';
-};
+const getReservedString = message => message.type === 'private_message' ? 'reservadamente ' : '';
 
-const getReceiverMessage = message => {
-    return message.type !== 'status' ? `${getReservedString(message)}para <span class="username">${message.to}</span>:` : '';
-};
+const getReceiverMessage = message => message.type !== 'status' ? `${getReservedString(message)}para <span class="username">${message.to}</span>:` : '';
 
 const renderMessages = () => {
     const messageElements = messages.map(message => {
@@ -117,21 +109,13 @@ const renderMessages = () => {
     document.querySelector('.messages-container').innerHTML = messageElements.length > 0 ? messageElements.join('') : '<p>Nenhuma mensagem!</p>';
 };
 
-const renderMessagesError = () => {
-    document.querySelector('.messages-container').innerHTML = '<p>Não foi possível recuperar as mensagens do servidor!</p>';
-};
+const renderMessagesError = () => document.querySelector('.messages-container').innerHTML = '<p>Não foi possível recuperar as mensagens do servidor!</p>';
 
-const addScrollToLastMessage = () => {
-    document.querySelector('.message:last-child').scrollIntoView();
-};
+const addScrollToLastMessage = () => document.querySelector('.message:last-child').scrollIntoView();
 
-const canShowMessage = message => {
-    return message.from === username || message.to === username || message.type !== 'private_message';
-};
+const canShowMessage = message => message.from === username || message.to === username || message.type !== 'private_message';
 
-const filterMessages = messages => {
-    return messages.filter(canShowMessage);
-};
+const filterMessages = messages => messages.filter(canShowMessage);
 
 const getMessages = () => {
     axios
@@ -144,13 +128,9 @@ const getMessages = () => {
         .catch(renderMessagesError);
 };
 
-const refreshMessagesPeriodically = () => {
-    setInterval(getMessages, THREE_SECONDS);
-};
+const refreshMessagesPeriodically = () => setInterval(getMessages, THREE_SECONDS);
 
-const refreshParticipantsPeriodically = () => {
-    setInterval(getParticipants, TEN_SECONDS);
-};
+const refreshParticipantsPeriodically = () => setInterval(getParticipants, TEN_SECONDS);
 
 const disableLoginButton = () => document.querySelector('.entry-form button').disabled = true;
 
@@ -166,9 +146,7 @@ const removeNameErrorMessage = () => {
     document.querySelector('.entry-form .input').classList.remove('invalid');
 };
 
-const hideLoginForm = () => {
-    document.querySelector('.entry-container').classList.add('hidden');
-};
+const hideLoginForm = () => document.querySelector('.entry-container').classList.add('hidden');
 
 const showLoadingGif = () => {
     document.querySelector('.loading-container').classList.remove('hidden');
@@ -209,13 +187,9 @@ const updateMessageReceiver = () => {
     currentParticipantSelected = participantName;
 };
 
-const updateMessageSender = () => {
-    userMessage.from = username;
-};
+const updateMessageSender = () => userMessage.from = username;
 
-const updateMessageType = () => {
-    userMessage.type = document.querySelector('.visibilities .selected').dataset.visibility;
-};
+const updateMessageType = () => userMessage.type = document.querySelector('.visibilities .selected').dataset.visibility;
 
 const requestUsername = () => {
     username = prompt('Qual é o seu lindo nome?');
@@ -252,22 +226,18 @@ const sendMessage = () => {
         .catch(logout);
 };
 
-const filterParticipants = participants => {
-    return participants.filter(participant => participant.name !== username);
-};
+const filterParticipants = participants => participants.filter(participant => participant.name !== username);
 
 const renderParticipants = () => {
     participants.unshift({ name: EVERYBODY_NAME });
 
-    const participantsElements = participants.map(participant => {
-        return `<li onClick="selectItem(this)" data-participant="${participant.name}" ${participant.name === currentParticipantSelected ? 'class="selected"' : ''}>
-            <div class="left">
-                <ion-icon name="${participant.name === EVERYBODY_NAME ? 'people' : 'person-circle'}"></ion-icon>
-                <span class="participantName">${participant.name}</span>
-            </div>
-            <ion-icon name="checkmark"></ion-icon>
-        </li>`;
-    });
+    const participantsElements = participants.map(participant => `<li onClick="selectItem(this)" data-participant="${participant.name}" ${participant.name === currentParticipantSelected ? 'class="selected"' : ''}>
+        <div class="left">
+            <ion-icon name="${participant.name === EVERYBODY_NAME ? 'people' : 'person-circle'}"></ion-icon>
+            <span class="participantName">${participant.name}</span>
+        </div>
+        <ion-icon name="checkmark"></ion-icon>
+    </li>`);
 
     document.querySelector('.participants').innerHTML = participantsElements.join('');
 };
