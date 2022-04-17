@@ -55,7 +55,7 @@ const showSideMenu = () => document.querySelector('.side-menu-container').classL
 const hideSideMenu = () => document.querySelector('.side-menu-container').classList.add('hidden');
 
 const getLegendText = () => {
-  if (userMessage.to !== 'Todos') {
+  if (userMessage.to !== EVERYBODY_NAME) {
     return `Enviando para ${userMessage.to} ${userMessage.type === RESERVED_MESSAGE_NAME ? '(reservadamente)' : ''}`;
   }
   return '';
@@ -90,9 +90,9 @@ const getMessageTypeClass = messageType => {
   }
 };
 
-const getReservedString = message => message.type === 'private_message' ? 'reservadamente ' : '';
+const getReservedString = message => message.type === RESERVED_MESSAGE_NAME ? 'reservadamente ' : '';
 
-const getReceiverMessage = message => message.type !== 'status' ? `${getReservedString(message)}para <span class="username">${message.to}</span>:` : '';
+const getReceiverMessage = message => message.type !== STATUS_MESSAGE_NAME ? `${getReservedString(message)}para <span class="username">${message.to}</span>:` : '';
 
 const renderMessages = () => {
   const messageElements = messages.map(message => {
@@ -113,7 +113,7 @@ const renderMessagesError = () => document.querySelector('.messages-container').
 
 const addScrollToLastMessage = () => document.querySelector('.message:last-child').scrollIntoView();
 
-const canShowMessage = message => message.from === username || message.to === username || message.type !== 'private_message';
+const canShowMessage = message => message.type !== RESERVED_MESSAGE_NAME || (message.to === EVERYBODY_NAME || message.to === username || message.from === username);
 
 const filterMessages = messages => messages.filter(canShowMessage);
 
