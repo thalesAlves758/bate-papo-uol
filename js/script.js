@@ -211,16 +211,17 @@ const keepLogged = () => {
 
 const sendMessage = () => {
   userMessage.text = userMessage.text.trim();
-
+  
   if (userMessage.text === '') {
     return;
   }
+  
+  document.querySelector('.bottom-bar input').value = '';
 
   axios
     .post("https://mock-api.driven.com.br/api/v6/uol/messages", userMessage)
     .then(() => {
       getMessages();
-      document.querySelector('.bottom-bar input').value = '';
       userMessage.text = '';
     })
     .catch(logout);
